@@ -13,16 +13,19 @@ exports.auth = async(req, res, next) => {
             });
         }
 
-        const payload = jwt.verify(token, JWT_SECRET);
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = payload;
+
+        // console.log(req.user);
 
         next();
     }
     catch(err) {
         return res.status(500).json({
             success: false,
-            message: "Error Authenticating"
+            message: "Error Authenticating",
+            error: err.message
         });
     }
 } 

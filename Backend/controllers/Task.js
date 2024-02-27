@@ -6,6 +6,10 @@ exports.create = async(req, res) => {
         // fetch data
         const {title, description, deadline} = req.body;
 
+        // console.log(title + " " + description + " " + deadline);
+        // console.log(req.body);
+        // console.log(req.user);
+
         // create task
         const task = await Task.create({
             title, description, deadline
@@ -13,20 +17,22 @@ exports.create = async(req, res) => {
 
         // fetch user 
         const userId = req.user.userId;
-        const user = await User.findOneAndUpdate(userId, {
+        const user = await User.findByIdAndUpdate(userId, {
             $push: {tasks: task._id}
         });
 
         // send response
         return res.status(200).json({
             success: true,
-            message: "Task Added"
+            message: "Task Added",
+            // user
         });
     }
     catch(err) {
         return res.status(500).json({
             success: false,
-            message: "Error adding a Task"
+            message: "Error adding a Task",
+            error: err.message
         });
     }
 }
