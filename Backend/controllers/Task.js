@@ -6,6 +6,14 @@ exports.create = async(req, res) => {
         // fetch data
         const {title, description, deadline} = req.body;
 
+        // validate
+        if (!deadline) {
+            return res.status(403).json({
+                success: false,
+                message: "Invalid Input Fields"
+            });
+        }
+
         // console.log(title + " " + description + " " + deadline);
         // console.log(req.body);
         // console.log(req.user);
@@ -56,6 +64,104 @@ exports.showAll = async(req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error fetching all Tasks"
+        });
+    }
+}
+
+exports.updateStatus = async(req, res) => {
+    
+    try{
+        // fetch data
+        const {taskId} = req.params;
+
+        // find and update
+
+        const task = await Task.findByIdAndUpdate(taskId, {
+            status: "Completed"
+        }, {new: true});
+
+        // return response
+        return res.status(200).json({
+            success: true,
+            message: "Status Updated",
+            task
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "Error Updating Status",
+            error: err.message
+        });
+    }
+}
+
+exports.updateTask = async(req, res) => {
+    try{
+        // fetch data
+        const {title, description, deadline} = req.body;
+        const {taskId} = req.params;
+
+        console.log(title + " " + description + " " + deadline);
+
+        // validate
+        if (!deadline) {
+            return res.status(403).json({
+                success: false,
+                message: "Invalid Input Fields"
+            });
+        }
+
+        // check for existing task
+        if (!await Task.findById(taskId)) {
+            return res.status(404).json({
+                success: false,
+                message: "Invalid Task Id"
+            });
+        }
+
+        // update with the data
+        const updatedTask = await Task.findByIdAndUpdate(taskId, {
+            title: title,
+            description: description,
+            deadline: deadline
+        }, {new: true});
+
+        // return response
+        return res.status(201).json({
+            success: true,
+            message: "Task Updated",
+            updatedTask
+        })
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "Error updating task",
+            error: err.message
+        });
+    }
+}
+
+exports.deleteTask = async(req, res) => {
+    try{
+        // fetch taskId
+        const {taskId} = req.params;
+
+        // find the task and delete it
+        await Task.findByIdAndDelete(taskId);
+
+        // send response
+        return res.status(200).json({
+            success: true,
+            message: "Task Deleted",
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "Error deleting task",
+            error: err.message
         });
     }
 }
