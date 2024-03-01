@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai"
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
@@ -18,7 +18,7 @@ function SignupForm() {
         event.preventDefault();
         const postData = JSON.stringify(formData);
 
-        try{
+        try {
             const response = await fetch("http://localhost:4000/api/v1/auth/signup", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -37,7 +37,7 @@ function SignupForm() {
                 toast.error("Error Signing Up");
             }
         }
-        catch(err) {
+        catch (err) {
             toast.error("Error Signing Up");
         }
     }
@@ -56,33 +56,33 @@ function SignupForm() {
             <form onSubmit={submitHandler} className="flex flex-col gap-y-5">
                 <div className="flex justify-between gap-x-4">
                     <label>
-                        <p className="font-medium text-base mb-2">First Name</p>  
-                        <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="text" name="firstName" value={formData.firstName} placeholder="First Name" onChange={changeHandler} required/>
+                        <p className="font-medium text-base mb-2">First Name</p>
+                        <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="text" name="firstName" value={formData.firstName} placeholder="First Name" onChange={changeHandler} required />
                     </label>
 
                     <label>
                         <p className="font-medium text-base mb-2">Last Name</p>
-                        <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="text" name="lastName" value={formData.lastName} placeholder="Last Name" onChange={changeHandler} required/>
+                        <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="text" name="lastName" value={formData.lastName} placeholder="Last Name" onChange={changeHandler} required />
                     </label>
                 </div>
-                
+
 
                 <label>
                     <p className="font-medium text-base mb-2">Email</p>
-                    <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="email" name="email" placeholder="Enter your email" onChange={changeHandler} value={formData.email} required/>
+                    <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="email" name="email" placeholder="Enter your email" onChange={changeHandler} value={formData.email} required />
                 </label>
 
                 <div className="flex justify-between gap-x-4">
                     <label className="relative">
                         <p className="font-medium text-base mb-2">Password</p>
-                        <input className="focus:outline-none w-full py-1 px-2 pr-9 border border-myviolet-100 rounded-md" type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={changeHandler} required/>
-                        <span className="absolute right-3 bottom-2 text-myviolet-100 cursor-pointer" onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? (<AiOutlineEye/>) : (<AiOutlineEyeInvisible/>)}</span>
+                        <input className="focus:outline-none w-full py-1 px-2 pr-9 border border-myviolet-100 rounded-md" type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={changeHandler} required />
+                        <span className="absolute right-3 bottom-2 text-myviolet-100 cursor-pointer" onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}</span>
                     </label>
 
                     <label className="relative">
                         <p className="font-medium text-base mb-2">Confirm Password</p>
-                        <input className="focus:outline-none w-full py-1 px-2 pr-9 border border-myviolet-100 rounded-md" type={confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={changeHandler} required/>
-                        <span className="absolute right-3 bottom-2 text-myviolet-100 cursor-pointer" onClick={() => setConfirmShowPassword((prev) => !prev)}>{confirmShowPassword ? (<AiOutlineEye/>) : (<AiOutlineEyeInvisible/>)}</span>
+                        <input className="focus:outline-none w-full py-1 px-2 pr-9 border border-myviolet-100 rounded-md" type={confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={changeHandler} required />
+                        <span className="absolute right-3 bottom-2 text-myviolet-100 cursor-pointer" onClick={() => setConfirmShowPassword((prev) => !prev)}>{confirmShowPassword ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}</span>
                     </label>
 
                 </div>
