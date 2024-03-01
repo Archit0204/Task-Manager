@@ -148,6 +148,14 @@ exports.deleteTask = async(req, res) => {
         // fetch taskId
         const {taskId} = req.params;
 
+        // fetch user to remove from his tasklist
+        const userId = req.user.userId;
+        const user = await User.findByIdAndUpdate(userId, {
+            $pull: {
+                tasks: taskId
+            }
+        });
+
         // find the task and delete it
         await Task.findByIdAndDelete(taskId);
 
