@@ -62,10 +62,22 @@ function EditForm({ data }) {
                         <textarea className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" name="description" cols="30" rows="5" onChange={changeHandler} placeholder="Enter Description" value={taskData.description} required></textarea>
                     </label>
 
-                    <label>
-                        <p className="font-medium text-base mb-2">Deadline</p>
-                        <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="date" name="deadline" onChange={changeHandler} value={taskData.deadline} required />
-                    </label>
+                    <div className="flex gap-x-10 items-center">
+                        <label>
+                            <p className="font-medium text-base mb-2">Deadline</p>
+                            <input className="focus:outline-none w-full py-1 px-2 border border-myviolet-100 rounded-md" type="date" name="deadline" onChange={changeHandler} value={taskData.deadline} required />
+                        </label>
+
+                        <label>
+                            <p className="font-medium text-base mb-2">Priority</p>
+                            <select onChange={changeHandler} className="border border-myviolet-100 rounded-md py-1 px-2" name="priority" value={taskData.priority}>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </label>
+                    </div>
+
                 </form>
 
                 <div className="w-full flex items-center justify-end gap-x-5">

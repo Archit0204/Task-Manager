@@ -1,5 +1,4 @@
 import React from "react";
-import Cover from "../components/Cover";
 import LoginForm from "../components/LoginForm";
 
 function Login({setIsLoggedIn}) {

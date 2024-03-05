@@ -26,12 +26,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 <p onClick={homeHandler} className="font-bold text-white text-3xl cursor-pointer">FocadoX</p>
                 <div className="flex flex-row font-semibold w-96 justify-around items-center text-white">
                     <div className="flex justify-between gap-x-3">
-                        <Link to="/about">
-                            <p>About</p>
-                        </Link>
-                        <Link to="/contact">
-                            <p>Contact</p>
-                        </Link>
+                            <p className="cursor-pointer">About</p>
+                            <p className="cursor-pointer">Contact</p>
                     </div>
                     <div>
                         {

@@ -9,8 +9,9 @@ function Task({ task, id, setTasks }) {
         title: `${task.title}`,
         description: `${task.description}`,
         createdAt: `${task.createdAt}`,
-        deadline: `${task.deadline.slice(0,10)}`,
+        deadline: `${task.deadline.slice(0, 10)}`,
         status: `${task.status}`,
+        priority: `${task.priority}`,
         taskId: id
     });
 
@@ -44,9 +45,9 @@ function Task({ task, id, setTasks }) {
             else {
                 toast.error("Network Occurred");
             }
-            
+
         }
-        catch(err) {
+        catch (err) {
             toast.error("Network Problem");
         }
     }
@@ -97,6 +98,7 @@ function Task({ task, id, setTasks }) {
                     }>{taskData.status}</span></p>
                     <p className="font-semibold">Due Date: <span className="text-myviolet-100">{taskData.deadline.slice(0, 10)}</span></p>
                 </div>
+                <p className="font-semibold">Priority: <span className="text-myviolet-100">{taskData.priority}</span></p>
             </div>
             <div className="flex items-center justify-between">
                 <div>
@@ -106,7 +108,7 @@ function Task({ task, id, setTasks }) {
                             <button onClick={updateTask} className="bg-myviolet-100 py-1 px-3 rounded-lg text-white">Edit</button>
                         </div>
                     }
-                    
+
                 </div>
 
                 <button onClick={deleteHandler} className="bg-red-600 py-1 px-3 rounded-lg text-white">Delete</button>
