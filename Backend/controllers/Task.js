@@ -204,3 +204,32 @@ exports.search = async(req, res) => {
         });
     }
 }
+
+exports.filter = async (req, res) => {
+    try{
+        const {filterData} = req.params;
+        const userId = req.user.userId;
+
+        const user = await User.findById(userId).populate({
+            path: 'tasks',
+            match: {
+                priority: {
+                    $eq: filterData,
+                }
+            }
+        }).exec();
+        
+        return res.status(200).json({
+            success: true,
+            message: "Tasks Filtered Successfully",
+            user
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            messsage: "Error while filtering",
+            error: err.message
+        });
+    }
+}
