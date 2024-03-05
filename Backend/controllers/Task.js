@@ -4,7 +4,7 @@ const User = require("../models/User");
 exports.create = async(req, res) => {
     try{   
         // fetch data
-        const {title, description, deadline} = req.body;
+        const {title, description, deadline, priority} = req.body;
 
         // validate
         if (!deadline) {
@@ -20,7 +20,7 @@ exports.create = async(req, res) => {
 
         // create task
         const task = await Task.create({
-            title, description, deadline
+            title, description, deadline, priority
         });
 
         // fetch user 
@@ -99,10 +99,10 @@ exports.updateStatus = async(req, res) => {
 exports.updateTask = async(req, res) => {
     try{
         // fetch data
-        const {title, description, deadline} = req.body;
+        const {title, description, deadline, priority} = req.body;
         const {taskId} = req.params;
 
-        console.log(title + " " + description + " " + deadline);
+        // console.log(title + " " + description + " " + deadline);
 
         // validate
         if (!deadline) {
@@ -124,7 +124,8 @@ exports.updateTask = async(req, res) => {
         const updatedTask = await Task.findByIdAndUpdate(taskId, {
             title: title,
             description: description,
-            deadline: deadline
+            deadline: deadline,
+            priority: priority
         }, {new: true});
 
         // return response
@@ -169,6 +170,36 @@ exports.deleteTask = async(req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error deleting task",
+            error: err.message
+        });
+    }
+}
+
+exports.search = async(req, res) => {
+    try{
+        const {searchVal} = req.params;
+
+        const userId = req.user.userId;
+
+        const user = await User.findById(userId).populate({
+            path: 'tasks',
+            match: {
+                title: {
+                    $regex: new RegExp(searchVal, "i")
+                }
+            }  
+        }).exec();
+
+        return res.status(200).json({
+            success: true,
+            message: "Search Successfull",
+            user
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            success: false,
+            messsage: "Error while searching",
             error: err.message
         });
     }
