@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-function Task({ task, id, setTasks }) {
+function Task({ task, id, deleteHandler }) {
 
     const navigate = useNavigate();
     const [taskData, setTaskData] = useState({
@@ -14,43 +14,6 @@ function Task({ task, id, setTasks }) {
         priority: `${task.priority}`,
         taskId: id
     });
-
-    async function deleteHandler() {
-        try {
-            const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:4000/api/v1/task/deleteTask/${taskData.taskId}`, {
-                method: 'DELETE',
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-            const resData = await res.json();
-
-            if (resData.success) {
-                const response = await fetch("http://localhost:4000/api/v1/task/showTasks", {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
-                const data = await response.json();
-
-                if (data.success) {
-                    setTasks(data.user.tasks);
-                }
-                else {
-                    toast.error("Error Loading Tasks");
-                }
-            }
-            else {
-                toast.error("Network Occurred");
-            }
-
-        }
-        catch (err) {
-            toast.error("Network Problem");
-        }
-    }
 
     function updateTask() {
 
@@ -111,7 +74,7 @@ function Task({ task, id, setTasks }) {
 
                 </div>
 
-                <button onClick={deleteHandler} className="bg-red-600 py-1 px-3 rounded-lg text-white">Delete</button>
+                <button onClick={() => deleteHandler(taskData.taskId)} className="bg-red-600 py-1 px-3 rounded-lg text-white">Delete</button>
             </div>
         </div>
     )

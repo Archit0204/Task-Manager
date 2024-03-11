@@ -94,6 +94,45 @@ function Dashboard() {
         setLoading(false);
     }
 
+    async function deleteHandler(taskId) {
+        setLoading(true);
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:4000/api/v1/task/deleteTask/${taskId}`, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const resData = await res.json();
+
+            if (resData.success) {
+                const response = await fetch("http://localhost:4000/api/v1/task/showTasks", {
+                    method: 'GET',
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    setTasks(data.user.tasks);
+                }
+                else {
+                    toast.error("Error Loading Tasks");
+                }
+            }
+            else {
+                toast.error("Network Occurred");
+            }
+
+        }
+        catch (err) {
+            toast.error("Network Problem");
+        }
+        setLoading(false);
+    }
+
     useEffect(() => {
 
         async function fetchData() {
@@ -128,7 +167,7 @@ function Dashboard() {
                 <button className="text-white text-lg font-semibold bg-myviolet-100 px-3 py-1 rounded-md" onClick={clickHandler}>Add a New Task</button>
                 <div className="w-full mx-auto">
                     {
-                        loading ? (<Spinner />) : (<Tasks tasks={tasks} setTasks={setTasks} searchHandler={searchHandler} filterHandler={filterHandler} filterChangeHandler={filterChangeHandler} removeFilterHandler={removeFilterHandler} search={search} filter={filter} setSearch={setSearch}/>)
+                        loading ? (<Spinner />) : (<Tasks tasks={tasks} setTasks={setTasks} searchHandler={searchHandler} filterHandler={filterHandler} filterChangeHandler={filterChangeHandler} removeFilterHandler={removeFilterHandler} search={search} filter={filter} setSearch={setSearch} deleteHandler={deleteHandler} />)
                     }
                 </div>
             </div>
