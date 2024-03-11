@@ -3,7 +3,7 @@ import Task from "./Task";
 import { GoSearch } from "react-icons/go";
 import toast from "react-hot-toast";
 
-function Tasks({ tasks, setTasks, searchHandler, filterHandler, filterChangeHandler, removeFilterHandler, search, filter, setSearch }) {
+function Tasks({ tasks, setTasks, searchHandler, filterHandler, filterChangeHandler, removeFilterHandler, search, filter, setSearch, deleteHandler }) {
 
 
 
@@ -41,7 +41,7 @@ function Tasks({ tasks, setTasks, searchHandler, filterHandler, filterChangeHand
                         <h1 className="text-white text-4xl font-semibold">Your Tasks</h1>
                         {
                             tasks.map((task) => {
-                                return <Task task={task} id={task._id} setTasks={setTasks} />;
+                                return <Task task={task} id={task._id} setTasks={setTasks} deleteHandler={deleteHandler}/>;
                             })
                         }
                     </div>
