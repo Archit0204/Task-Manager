@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 const User = require("../models/User");
+const { validation } = require("../utils/validation");
 
 exports.create = async(req, res) => {
     try{   
@@ -7,7 +8,7 @@ exports.create = async(req, res) => {
         const {title, description, deadline, priority} = req.body;
 
         // validate
-        if (!deadline) {
+        if (!validation(deadline, "date")) {
             return res.status(403).json({
                 success: false,
                 message: "Invalid Input Fields"
@@ -105,7 +106,7 @@ exports.updateTask = async(req, res) => {
         // console.log(title + " " + description + " " + deadline);
 
         // validate
-        if (!deadline) {
+        if (!validation(deadline, "date")) {
             return res.status(403).json({
                 success: false,
                 message: "Invalid Input Fields"

@@ -15,5 +15,13 @@ exports.validation = (field, type) => {
     else if (type === "name") {
         return nameSchema.safeParse(field).success;
     }
+    else if (type === "date") {
+        if (Date.now() > Date.parse(field)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
 }
