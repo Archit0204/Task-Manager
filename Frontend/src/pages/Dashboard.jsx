@@ -21,7 +21,7 @@ function Dashboard() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`${process.env.API_URL}/api/v1/task/search/${search}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/search/${search}`, {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -45,7 +45,7 @@ function Dashboard() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token")
-            const response = await fetch(`${process.env.API_URL}/api/v1/task/showTasks`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/showTasks`, {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -74,7 +74,7 @@ function Dashboard() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`${process.env.API_URL}/api/v1/task/filter/${filter}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/filter/${filter}`, {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -98,7 +98,7 @@ function Dashboard() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`${process.env.API_URL}/api/v1/task/deleteTask/${taskId}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/deleteTask/${taskId}`, {
                 method: 'DELETE',
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -107,7 +107,7 @@ function Dashboard() {
             const resData = await res.json();
 
             if (resData.success) {
-                const response = await fetch(`${process.env.API_URL}/api/v1/task/showTasks`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/showTasks`, {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -139,7 +139,7 @@ function Dashboard() {
             setLoading(true);
             try {
                 const token = localStorage.getItem("token")
-                const response = await fetch(`${process.env.API_URL}/api/v1/task/showTasks`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/showTasks`, {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${token}`

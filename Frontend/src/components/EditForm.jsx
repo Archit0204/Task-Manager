@@ -22,7 +22,7 @@ function EditForm({ data }) {
         console.log(postData);
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`${process.env.API_URL}/api/v1/task/updateTask/${taskData.taskId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/updateTask/${taskData.taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

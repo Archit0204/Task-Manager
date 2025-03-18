@@ -24,7 +24,7 @@ function LoginForm({setIsLoggedIn}) {
         const postData = JSON.stringify(formData);
 
         try{
-            const response = await fetch(`${process.env.API_URL}/api/v1/auth/login`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: postData

@@ -27,7 +27,7 @@ function Task({ task, id, deleteHandler }) {
         try {
             const token = localStorage.getItem("token");
             if (taskData.status !== "Completed") {
-                const response = await fetch(`${process.env.API_URL}/api/v1/task/updateStatus/${id}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/task/updateStatus/${id}`, {
                     method: 'PUT',
                     headers: {
                         "Authorization": `Bearer ${token}`
